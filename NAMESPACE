@@ -1,0 +1,98 @@
+useDynLib(libgsl)
+useDynLib(libgslcblas)
+useDynLib(libredcmc)
+
+#exportPattern("^[^\\.]")
+
+export(
+# main functions
+    'ReDCM_estimate',
+    'ReDCM_prepare_dcm',
+    'ReDCM_nlsi_GN',
+    'ReDCM_int',
+    'ReDCM_hemodynamics',
+    'ReDCM_fx_fmri',
+    'ReDCM_gx_fmri',
+    'ReDCM_evidence',
+    'ReDCM_kernels',
+    'ReDCM_generate',
+    'ReDCM_run_BMS',
+    'ReDCM_BMS_gibbs',
+    'ReDCM_bilinear_condition',
+# utils
+    'ReDCM_dctmtx',
+    'ReDCM_Ce',
+    'ReDCM_find',
+    'ReDCM_find2',
+    'ReDCM_find3',
+    'pgrad',
+    'pjacob',
+    'ReDCM_cat',
+    'ReDCM_trace',
+    'ReDCM_dx',
+    'ReDCM_ginv',
+    'ReDCM_spdiags',
+    'ReDCM_Ncdf',
+    'ReDCM_inv',
+    'ReDCM_erf',
+    'ReDCM_erfc',
+    'ReDCM_erfinv',
+    'ReDCM_erfcinv',
+    'ReDCM_test',
+# ReDCM C interface
+    'c_blas_dgemm',
+    'c_call_integrate',
+    'c_int_det',
+    'c_int_det_hemodyn',
+    'c_call_intdiff',
+    'c_int_dfdp',
+    'c_call_reduce',
+    'c_bireduce',
+    'c_soreduce',
+    'c_call_fx',
+    'c_fx_fmri',
+    'c_dfdx',
+    'c_dfdu',
+    'c_dfdxdu',
+    'c_dfdxdx',
+    'c_gx_fmri',
+    'c_dgdx',
+    'c_dgdxdx',
+# class constructors
+    '.Data',
+    '.External',
+    '.Params',
+    '.Model',
+    '.Estimates'
+)
+
+exportClasses(
+# classes
+    'Data',
+    'External',
+    'Params',
+    'Model',
+    'Estimates'
+)
+
+exportMethods(
+# class methods
+    'setData',
+    'extSpike',
+    'extCorr',
+    'detrend',
+    'setScale',
+    'setupModel',
+    'extendModel',
+    'setPriors',
+    'setPriorCov',
+    'setHemodyn',
+    'readParams',
+    'pVect',
+    'pUnvect',
+    'setupEstimates',
+    'initEstimates',
+    'evidence'
+)
+
+import( methods, R.matlab, Matrix, matrixcalc, numDeriv, plyr, stringr, pracma )

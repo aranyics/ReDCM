@@ -1,0 +1,28 @@
+set -x
+set -e
+
+which cmake
+
+rm -rf _builds
+
+cmake -H. -B_builds \
+    -DCMAKE_VERBOSE_MAKEFILE=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=_install \
+    -DCMAKE_SHARED_LIBRARY_PREFIX_CXX=""
+
+cmake --build _builds --target install --config Release
+
+# Linux
+RINST_TMP=`pwd`
+export RINST_TMP
+cp $RINST_TMP/_install/lib/libredcmc.so src/ || echo "Failed: libredcmc.so -> src"
+cp $RINST_TMP/_install/lib/redcmc_export.h src/ || echo "Failed: redcmc_export.h -> src"
+cp $RINST_TMP/_install/lib/libgsl* src/ || echo "Failed: libgsl* libraries -> src"
+cd src/
+ln -s libgsl.so* libgsl.so
+ln -s libgslcblas.so* libgslcblas.so
+cd ..
+
+# Mac
+# cp _install/lib/foocpp.dylib src/foocpp.so || echo "Failed: foocpp.dylib -> src"
